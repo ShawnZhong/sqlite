@@ -972,6 +972,9 @@ int sqlite3Atoi(const char *z){
 ** The p->z[] array is *not* zero-terminated.
 */
 void sqlite3FpDecode(FpDecode *p, double r, int iRound, int mxRound){
+#if SQLITE_OMIT_FLOATING_POINT
+  return;
+#endif
   int i;
   u64 v;
   int e, exp = 0;

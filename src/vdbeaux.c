@@ -4500,8 +4500,8 @@ int sqlite3IntFloatCompare(i64 i, double r){
   }else{
     i64 y;
     double s;
-    if( r<-9223372036854775808.0 ) return +1;
-    if( r>=9223372036854775808.0 ) return -1;
+    if( r<(double)-9223372036854775808.0 ) return +1;
+    if( r>=(double)9223372036854775808.0 ) return -1;
     y = (i64)r;
     if( i<y ) return -1;
     if( i>y ) return +1;

@@ -680,7 +680,7 @@ int sqlite3VdbeBooleanValue(Mem *pMem, int ifNull){
   testcase( pMem->flags & MEM_IntReal );
   if( pMem->flags & (MEM_Int|MEM_IntReal) ) return pMem->u.i!=0;
   if( pMem->flags & MEM_Null ) return ifNull;
-  return sqlite3VdbeRealValue(pMem)!=0.0;
+  return sqlite3VdbeRealValue(pMem)!=(double)0.0;
 }
 
 /*
@@ -755,7 +755,7 @@ int sqlite3VdbeMemRealify(Mem *pMem){
 */
 int sqlite3RealSameAsInt(double r1, sqlite3_int64 i){
   double r2 = (double)i;
-  return r1==0.0
+  return r1==(double)0.0
       || (memcmp(&r1, &r2, sizeof(r1))==0
           && i >= -2251799813685248LL && i < 2251799813685248LL);
 }
@@ -765,8 +765,8 @@ int sqlite3RealSameAsInt(double r1, sqlite3_int64 i){
 ** from UBSAN.
 */
 i64 sqlite3RealToI64(double r){
-  if( r<-9223372036854774784.0 ) return SMALLEST_INT64;
-  if( r>+9223372036854774784.0 ) return LARGEST_INT64;
+  if( r<(double)-9223372036854774784.0 ) return SMALLEST_INT64;
+  if( r>(double)+9223372036854774784.0 ) return LARGEST_INT64;
   return (i64)r;
 }
 
